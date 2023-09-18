@@ -13,7 +13,7 @@ import java.util.Optional;
 @Path("/employees")
 public class EmployeeResources {
 
-    private EmployeeServices employeeServices;
+    private final EmployeeServices employeeServices;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public EmployeeResources() {
