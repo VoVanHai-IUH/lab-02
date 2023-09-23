@@ -13,6 +13,7 @@
 <body>
     <a href="insertEmployee.jsp">Insert new Employee</a> <br/>
     <a href="controls?action=cust_list">Customer listing</a>
+    <a href="products.jsp">Product listing</a>
 <br/>
     ...
 </body>

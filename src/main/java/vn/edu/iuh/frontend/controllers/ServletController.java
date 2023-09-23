@@ -10,6 +10,7 @@ import vn.edu.iuh.backend.models.Customer;
 import vn.edu.iuh.backend.services.CustomerServices;
 import vn.edu.iuh.frontend.model.CustomerModel;
 import vn.edu.iuh.frontend.model.EmployeeModel;
+import vn.edu.iuh.frontend.model.ProductModel;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,9 +27,13 @@ public class ServletController extends HttpServlet {
                     EmployeeModel empModel = new EmployeeModel();
                     empModel.insertEmp(req, resp);
                 } else if (action.equals("insertCust")) {
-                    CustomerModel customerModel =new CustomerModel();
-                    customerModel.insertCust(req,resp);
+                    CustomerModel customerModel = new CustomerModel();
+                    customerModel.insertCust(req, resp);
+                } else if (action.equals("insert_products")) {
+                    ProductModel pm = new ProductModel();
+                    pm.insertProduct(req, resp);
                 }
+
             } else {
                 resp.sendRedirect("customerListing.jsp");
             }
@@ -39,20 +44,21 @@ public class ServletController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Object actionObject = req.getParameter("action");
-        if (actionObject != null) {
-            String action = actionObject.toString();
-            if(action.equals("cust_list")){
-               /* CustomerServices services =new CustomerServices();
-                List<Customer> lst = services.getAll();
-                HttpSession session =req.getSession(true);
-                session.setAttribute("customers",lst);*/
-                resp.sendRedirect("customerListing.jsp");
-            }else{
-
+        try {
+            Object actionObject = req.getParameter("action");
+            if (actionObject != null) {
+                String action = actionObject.toString();
+                if (action.equals("cust_list")) {
+                    resp.sendRedirect("customerListing.jsp");
+                } else if (action.equals("delete_product")) {
+                    ProductModel pm = new ProductModel();
+                    pm.deleteProduct(req, resp);
+                }
+            } else {
+                resp.sendRedirect("test.jsp");
             }
-        } else {
-            resp.sendRedirect("test.jsp");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
